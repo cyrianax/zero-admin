@@ -1,0 +1,46 @@
+@import "./define.less";
+
+.g-left-spacing{
+    margin-left: @rowSpacing;
+}
+.g-right-spacing{
+    margin-right: @rowSpacing;
+}
+.g-bottom-spacing{
+    margin-bottom: @colSpacing;
+}
+.g-top-spacing{
+    margin-top: @colSpacing;
+}
+
+.g-table-wrap{
+    height: calc(100% - 54px);
+    >.ivu-table-wrapper{
+        height: calc(100% - 40px);
+		margin-bottom: 10px;
+		.ivu-table-body{
+			height: calc(100% - 40px);
+			overflow: auto;
+		}
+    }
+    >.ivu-page{
+        float: right;
+        .ivu-page-options-sizer{
+            margin-right: 0px;
+        }
+    }
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar{
+    width: 6px;
+    height: 6px;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+/*定义滑块，内阴影及圆角*/
+::-webkit-scrollbar-thumb{
+    border-radius: 2px;
+    background-color: #d8d8d8;
+}
