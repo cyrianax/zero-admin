@@ -1,0 +1,5 @@
+<div class="p-gather-modal">
+	<Modal ok-text="采集" :value="value" @on-visible-change="visibleChange" title="采集功能" :loading="loading" @on-ok="onOk">
+		<Input clearable v-model="url" size="large" placeholder="请输入采集目标的url地址" />
+	</Modal>
+</div>

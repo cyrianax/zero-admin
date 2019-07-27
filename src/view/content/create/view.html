@@ -1,0 +1,21 @@
+<div class="p-content-create-page">
+	<Row :gutter="10" class="p-title-wrap" style="text-align: right; line-height: 50px;">
+		<Col span="22" style="padding: 0 40px">
+		<Input clearable v-model="data.title" @on-change="titleChange" size="large" placeholder="请输入标题" />
+		</Col>
+		<Button type="primary" size="large" @click="showSubmitModal = true">新增文章</Button>
+	</Row>
+
+	<markdown-editor v-model="data.content" ref="markdown" :options="markdownOptions" />
+	<Button class="p-use-gather" size="small" @click="showGattherModal = true">使用采集</Button>
+	<GatherModal @on-gather-success="onGatherSuccess" v-model="showGattherModal"></GatherModal>
+
+	<Modal v-model="showSubmitModal" title="新增文章" :loading="loading" @on-ok="onOk">
+		<Select size="large" @on-change="currentTagsChange" placeholder="请选择文章类别" v-model="currentTags" filterable
+			multiple>
+			<Option v-for="item in tags" :value="item.value" :key="item.value">
+				{{ item.label }}</Option>
+		</Select>
+	</Modal>
+
+</div>

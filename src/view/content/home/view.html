@@ -7,11 +7,19 @@
 		<Select @on-change="tagChange" clearable v-model="currentTag" style="width:200px" placeholder="请选择分类">
 			<Option v-for="tag in tags" :value="tag.value" :key="tag.value">{{ tag.label }}</Option>
 		</Select>
+
+		<Button type="primary" class="p-add-content" @click="addContent">新增文章</Button>
 	</div>
 	<div class="g-table-wrap">
 		<Table border ref="selection" :columns="tabCol" :data="data">
 			<template slot-scope="{ row: {tags} }" slot="tags">
 				<span v-for="tag in tags">{{ tag.name }}</span>
+			</template>
+			<template slot-scope="{ row: {title} }" slot="title">
+				<div class="p-text-overflow" :title="title">{{ title }}</div>
+			</template>
+			<template slot-scope="{ row: {content} }" slot="content">
+				<div class="p-text-overflow" :title="content">{{ content }}</div>
 			</template>
 			<template slot-scope="{ row: {create_date} }" slot="create_date">
 				{{$moment(create_date).format('YYYY-MM-DD HH:mm:ss')}}
@@ -19,15 +27,13 @@
 			<template slot-scope="{ row: {update_date} }" slot="update_date">
 				{{$moment(update_date).format('YYYY-MM-DD HH:mm:ss')}}
 			</template>
-			<template slot-scope="item" slot="ctrl">
-				<Button type="error" size="small" @click="$Message.info('功能开发中...')">删除</Button>
-				<Button type="primary" size="small" @click="$Message.info('功能开发中...')">修改</Button>
-				<Button type="primary" size="small" @click="$Message.info('功能开发中...')">查看</Button>
+			<template slot-scope="{ row }" slot="ctrl">
+				<Button type="error" size="small" @click="delContent(row)">删除</Button>
+				<Button type="primary" size="small" @click="editContent(row._id)">修改</Button>
+				<Button type="primary" size="small" @click="viewContent(row._id)">查看</Button>
 			</template>
 		</Table>
-		<Page @on-change="pageChange" @on-page-size-change="onPageSizeChange" :total="total" :page-size="pageSize" :current="pageIndex" show-total show-sizer />
+		<Page @on-change="pageChange" @on-page-size-change="onPageSizeChange" :total="total" :page-size="pageSize"
+			:current="pageIndex" show-total show-sizer />
 	</div>
-
-	<!-- <Button @click="handleSelectAll(true)">Set all selected</Button>
-	<Button @click="handleSelectAll(false)">Cancel all selected</Button> -->
 </div>
