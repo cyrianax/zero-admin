@@ -14,3 +14,34 @@ export const getTags = () => {
 		method: 'get'
 	})
 }
+
+export const delContent = (id) => {
+	return axios.request({
+		url: `content/${id}`,
+		method: 'delete'
+	})
+}
+
+export const findContentById = (id) => {
+	return axios.request({
+		url: `content/${id}`,
+		method: 'get'
+	})
+}
+
+export const addContent = (data) => {
+	console.log(data);
+	return axios.request({
+		url: `content`,
+		method: 'post',
+		data
+	})
+}
+
+export const gather = (params) => {
+	return axios.request({
+		url: `http://attunmen.karazhan.online/api/crawler`,
+		method: 'get',
+		params
+	})
+}

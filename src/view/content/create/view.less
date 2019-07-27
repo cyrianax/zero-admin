@@ -1,0 +1,42 @@
+@import '~assets/css/define';
+
+.p-content-create-page{
+	padding: 20px;
+	height: 100%;
+	.p-title-wrap{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		background-color: white;
+	}
+	.markdown-wrapper{
+		.editor-toolbar{
+			&.fullscreen{
+				top: 50px;
+				border-radius: 0;
+				box-shadow: 0 2px 6px #aaa;
+				z-index: 901;
+			}
+		}
+		.CodeMirror-fullscreen{
+			top: 100px;
+			z-index: 900;
+		}
+		.editor-preview-side{
+			&.editor-preview-active-side{
+				top: 100px;
+				z-index: 89;
+			}
+		}
+		.editor-toolbar.fullscreen:after{
+			display: none;
+		}
+	}
+	.p-use-gather{
+		position: fixed;
+		top: 62px;
+		right: 10px;
+		z-index: 902;
+	}
+}
