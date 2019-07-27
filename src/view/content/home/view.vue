@@ -63,7 +63,9 @@ export default {
                 q: this.keyword,
                 tag_id: this.currentTag
             });
-
+            data.list.forEach(item => {
+                item.tagNames = item.tags.map(item => item.name).join("、");
+            });
             this.data = data.list;
             this.total = data.count;
         },
