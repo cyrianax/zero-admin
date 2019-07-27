@@ -12,8 +12,8 @@
 	</div>
 	<div class="g-table-wrap">
 		<Table border ref="selection" :columns="tabCol" :data="data">
-			<template slot-scope="{ row: {tags} }" slot="tags">
-				<span v-for="tag in tags">{{ tag.name }}</span>
+			<template slot-scope="{ row: {tagNames} }" slot="tags">
+				<div class="p-text-overflow">{{tagNames}}</div>
 			</template>
 			<template slot-scope="{ row: {title} }" slot="title">
 				<div class="p-text-overflow" :title="title">{{ title }}</div>
