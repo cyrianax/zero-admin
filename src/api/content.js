@@ -15,10 +15,11 @@ export const getTags = () => {
 	})
 }
 
-export const delContent = (id) => {
+export const delContent = (ids) => {
 	return axios.request({
-		url: `content/${id}`,
-		method: 'delete'
+		url: `content`,
+		method: 'delete',
+		data: { ids }
 	})
 }
 
