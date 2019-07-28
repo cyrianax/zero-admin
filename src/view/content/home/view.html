@@ -9,11 +9,23 @@
 		</Select>
 
 		<Button type="primary" class="p-add-content" @click="addContent">新增文章</Button>
+		<Dropdown style="float: right;" @on-click="selectClick">
+			<Button type="primary">
+				批量操作
+				<Icon type="ios-arrow-down"></Icon>
+			</Button>
+			<DropdownMenu slot="list">
+				<DropdownItem name="del" :disabled="!selectedIds.length">批量删除</DropdownItem>
+				<DropdownItem name="class" :disabled="!selectedIds.length">修改分类</DropdownItem>
+			</DropdownMenu>
+		</Dropdown>
 	</div>
 	<div class="g-table-wrap">
-		<Table border ref="selection" :columns="tabCol" :data="data">
+		<Table border ref="selection" :columns="tabCol" :data="data" @on-selection-change="selectionChange">
 			<template slot-scope="{ row: {tagNames} }" slot="tags">
-				<div class="p-text-overflow">{{tagNames}}</div>
+				<div class="p-text-overflow">
+					<Tag checkable :key="idx" v-for="(tag, idx) in tagNames">{{tag}}</Tag>
+				</div>
 			</template>
 			<template slot-scope="{ row: {title} }" slot="title">
 				<div class="p-text-overflow" :title="title">{{ title }}</div>
@@ -28,7 +40,7 @@
 				{{$moment(update_date).format('YYYY-MM-DD HH:mm:ss')}}
 			</template>
 			<template slot-scope="{ row }" slot="ctrl">
-				<Button type="error" size="small" @click="delContent(row)">删除</Button>
+				<Button type="error" size="small" @click="delContentItem(row)">删除</Button>
 				<Button type="primary" size="small" @click="editContent(row._id)">修改</Button>
 				<Button type="primary" size="small" @click="viewContent(row._id)">查看</Button>
 			</template>
