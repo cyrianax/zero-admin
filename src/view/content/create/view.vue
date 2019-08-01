@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         async addContent(data) {
-            await addContent(data);
+            await addContent(Object.assign(data, { tags: this.currentTags }));
         },
         onGatherSuccess(data) {
             this.data = data;

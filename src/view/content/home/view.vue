@@ -51,7 +51,8 @@ export default {
             tags: [],
             total: 0,
             keyword: "",
-            currentDelContentId: null
+            currentDelContentId: null,
+            selectedIds: []
         };
     },
     methods: {
@@ -63,7 +64,9 @@ export default {
                 q: this.keyword,
                 tag_id: this.currentTag
             });
-
+            data.list.forEach(item => {
+                item.tagNames = item.tags.map(item => item.name);
+            });
             this.data = data.list;
             this.total = data.count;
         },
@@ -91,13 +94,24 @@ export default {
         searchChange() {
             this.getContent();
         },
+        delContentItem(item) {
+            this.delContent([item]);
+        },
         // 删除文章
-        delContent(item) {
+        delContent(contents) {
+            let titles = [],
+                ids = [];
+            contents.forEach(item => {
+                titles.push(`《${item.title}》`);
+                ids.push(item._id);
+            });
+
             this.$Modal.confirm({
                 title: "提示",
-                content: `你确定要删除《${item.title}》?`,
+                content: `你确定要删除${titles.join("、<br>")}?`,
+                width: "480px",
                 onOk: async () => {
-                    await delContent(item._id);
+                    await delContent(ids);
                     this.$Message.success("删除成功");
                     this.getContent();
                 }
@@ -111,6 +125,24 @@ export default {
         },
         addContent() {
             this.$router.push({ name: "content_create" });
+        },
+        selectionChange(selected) {
+            this.selectedIds = selected;
+        },
+        async selectClick(menuName) {
+            if (!this.selectedIds.length) {
+                this.$Message.warning("请选择文章!");
+                return;
+            }
+            switch (menuName) {
+                case "del":
+                    this.delContent(this.selectedIds);
+                    break;
+                case "class":
+                    break;
+                default:
+                    break;
+            }
         }
     },
     created() {
