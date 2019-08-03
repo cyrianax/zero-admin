@@ -18,8 +18,8 @@ export default {
 	 */
 	baseUrl: {
 		development: 'http://localhost:7777/api',
-		test: 'http://localhost:7777/api',
-		production: 'http://localhost:7777/api'
+		test: 'http://47.107.47.236:7777/api',
+		production: 'http://47.107.47.236:7777/api'
 	},
 	/**
 	 * @description 默认打开的首页的路由name值，默认为home

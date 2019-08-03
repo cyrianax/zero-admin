@@ -1,4 +1,44 @@
-<div class="p-content-operation-page">
-	<h1>{{data.title}}</h1>
-	<markdown-editor v-model="data.content" ref="markdown" :options="markdownOptions" />
+<div class="p-content-edit-page">
+	<Row :gutter="10" class="p-title-wrap" style="text-align: right; line-height: 50px;">
+		<Col span="20">
+		<Input v-model="data.title" size="large" placeholder="请输入标题" />
+		</Col>
+		<Col span="2" v-if="!edit">
+		<Button class="p-use-gather" long size="large" @click="showGattherModal = true">采集</Button>
+		</Col>
+		<Col :span="edit ? 4 : 2" style="text-align: right">
+		<Button type="primary" long size="large" @click="showSubmitModal = true">{{edit ? '保存' : '新增' }}</Button>
+		</Col>
+	</Row>
+	<div class="p-info">
+		<span>{{$moment(data.update_date).format('YYYY年MM月DD日 HH:mm:ss')}}</span>
+		<span>阅读数: {{data.read_quantity}}</span>
+		<span>分类： {{currentTagsName.join('、')}}</span>
+	</div>
+	<Modal v-model="showSubmitModal" :title="edit ? '修改文章' : '新增文章'" :loading="loading" @on-ok="onOk">
+		<Row :gutter="10">
+			<Col span="16">
+			<span>文章类别: </span>
+			<Select style="width: calc(100% - 55px)" :max-tag-count="5" placeholder="请选择文章类别" v-model="currentTags"
+				filterable multiple>
+				<Option v-for="item in tags" :value="item.value" :key="item.value">
+					{{ item.label }}</Option>
+			</Select>
+			</Col>
+			<Col span="8">
+			<Input placeholder="新增分类" v-model="tag" @on-enter="addTag">
+			<Button slot="append" icon="md-add" @click="addTag"></Button>
+			</Input>
+			</Col>
+		</Row>
+		<Row>
+			<label>审核通过: </label>
+			<Checkbox class="g-top-spacing" v-model="data.statusId"></Checkbox>
+		</Row>
+
+	</Modal>
+
+	<GatherModal @on-gather-success="onGatherSuccess" v-model="showGattherModal"></GatherModal>
+
+	<markdown-editor v-model="data.content" />
 </div>

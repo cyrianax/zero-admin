@@ -118,7 +118,7 @@ export default {
             });
         },
         editContent(id) {
-            this.$router.push({ name: "content_edit", query: { id } });
+            this.$router.push({ name: "content_edit", query: { id, edit: 1 } });
         },
         viewContent(id) {
             this.$router.push({ name: "content_read", query: { id } });

@@ -9,29 +9,24 @@ export default {
     data() {
         return {
             data: {},
-            editor: null
+            currentTagsName: []
         };
     },
     methods: {
         async findContentById() {
             this.data = await findContentById(this.$route.query.id);
+            this.data.tags.forEach(item => {
+                this.currentTagsName.push(item.name);
+            });
         }
     },
 
-    created() {
-        console.log(this.$route);
-    },
-    computed: {
-        markdownOptions() {
-            return { toolbar: false, status: false };
-        }
-    },
+    created() {},
+    computed: {},
     components: {
         MarkdownEditor
     },
     mounted() {
-        this.editor = this.$refs.markdown.editor;
-        this.editor.togglePreview();
         this.findContentById();
     }
 };

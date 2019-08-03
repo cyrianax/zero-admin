@@ -12,7 +12,7 @@ export default {
     data() {
         return {
             loading: true,
-            url: "https://www.jianshu.com/p/392145843afe"
+            url: ""
         };
     },
     methods: {

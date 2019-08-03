@@ -1,12 +1,17 @@
 <template>
-    <div class="markdown-wrapper">
-        <textarea ref="editor"></textarea>
-    </div>
+    <mavon-editor
+        :value="value"
+        @input="inputChange"
+        defaultOpen="preview"
+        :subfield="edit"
+        :toolbarsFlag="edit"
+        :boxShadow="false"
+    ></mavon-editor>
 </template>
 
 <script>
-import Simplemde from "simplemde";
-import "simplemde/dist/simplemde.min.css";
+import { mavonEditor } from "mavon-editor";
+require("mavon-editor/dist/css/index.css");
 export default {
     name: "MarkdownEditor",
     props: {
@@ -20,7 +25,7 @@ export default {
                 return {};
             }
         },
-        localCache: {
+        edit: {
             type: Boolean,
             default: true
         }
@@ -31,60 +36,25 @@ export default {
         };
     },
     methods: {
-        addEvents() {
-            this.editor.codemirror.on("change", () => {
-                let value = this.editor.value();
-                if (this.localCache) localStorage.markdownContent = value;
-                this.$emit("input", value);
-                this.$emit("on-change", value);
-            });
-            this.editor.codemirror.on("focus", () => {
-                this.$emit("on-focus", this.editor.value());
-            });
-            this.editor.codemirror.on("blur", () => {
-                this.$emit("on-blur", this.editor.value());
-            });
-        },
-        updateContent() {
-			if (this.value === this.editor.value()) return;
-            this.$nextTick(() => this.editor.value(this.value));
+        inputChange(val) {
+            this.$emit("input", val);
         }
     },
-    mounted() {
-        this.editor = new Simplemde(
-            Object.assign(this.options, {
-                element: this.$refs.editor
-            })
-        );
-        /**
-         * 事件列表为Codemirror编辑器的事件，更多事件类型，请参考：
-         * https://codemirror.net/doc/manual.html#events
-         */
-        this.addEvents();
-        let content = localStorage.markdownContent;
-        if (content) this.editor.value(content);
-        this.updateContent();
+    mounted() {},
+    components: {
+        mavonEditor
     },
     watch: {
         value: {
-            handler() {
-                this.updateContent();
-            }
+            handler() {}
         }
     }
 };
 </script>
 
 <style lang="less">
-.markdown-wrapper {
-    .editor-toolbar.fullscreen {
-        z-index: 9999;
-    }
-    .CodeMirror-fullscreen {
-        z-index: 9999;
-    }
-    .CodeMirror-fullscreen ~ .editor-preview-side {
-        z-index: 9999;
-    }
+.markdown-body {
+    height: 100%;
+    z-index: 99 !important;
 }
 </style>
