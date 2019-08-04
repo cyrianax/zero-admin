@@ -15,6 +15,14 @@ export const getTags = () => {
 	})
 }
 
+export const addTag = (data) => {
+	return axios.request({
+		url: 'tag',
+		method: 'post',
+		data
+	})
+}
+
 export const delContent = (ids) => {
 	return axios.request({
 		url: `content`,
@@ -31,10 +39,17 @@ export const findContentById = (id) => {
 }
 
 export const addContent = (data) => {
-	console.log(data);
 	return axios.request({
 		url: `content`,
 		method: 'post',
+		data
+	})
+}
+
+export const updateContent = (data, contentId) => {
+	return axios.request({
+		url: `content/${contentId}`,
+		method: 'put',
 		data
 	})
 }

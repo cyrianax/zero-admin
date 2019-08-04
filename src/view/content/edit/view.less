@@ -1,7 +1,25 @@
 @import '~assets/css/define';
 
-.p-content-operation-page{
+.p-content-edit-page{
 	padding: 20px;
 	height: 100%;
+	display: flex;
+	flex-direction: column;
+	.p-title-wrap{
+		color: #333;
+		input{
+			font-size: 24px;
+			font-weight: 600;
+			color: #333;
+			height: 46px;
+		}
+	}
+	.p-info{
+		line-height: 32px;
+		>* {
+			display: inline-block;
+			margin-right: 10px;
+		}
+	}
 
 }

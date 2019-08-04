@@ -88,7 +88,7 @@ export default [
 					title: '新增文章',
 					hideInMenu: true
 				},
-				component: () => import('@/view/content/create/view.vue'),
+				component: () => import('@/view/content/edit/view.vue'),
 			},
 			{
 				path: 'content_read',

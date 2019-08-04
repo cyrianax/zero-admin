@@ -24,7 +24,7 @@ Vue.prototype.$moment = moment;
 //if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 Vue.use(iView, {
-  i18n: (key, value) => i18n.t(key, value)
+	i18n: (key, value) => i18n.t(key, value)
 })
 Vue.use(TreeTable)
 Vue.use(VOrgTree)
@@ -49,9 +49,9 @@ Vue.directive('clickOutside', clickOutside)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  i18n,
-  store,
-  render: h => h(App)
+	el: '#app',
+	router,
+	i18n,
+	store,
+	render: h => h(App)
 })
